@@ -404,6 +404,7 @@ button {
 }
 
 .floating-call {
+  position: relative;
   display: grid;
   width: 4.5rem;
   height: 4.5rem;
@@ -416,6 +417,48 @@ button {
 
 .floating-call:hover {
   transform: translateY(-3px) scale(1.03);
+}
+
+.floating-call[aria-label='WhatsApp us'] {
+  background: #25d366 !important;
+  box-shadow: 0 0 0 0 rgb(37 211 102 / .55), 0 12px 30px rgb(0 0 0 / .2);
+  animation: whatsapp-pulse 1.8s infinite;
+}
+
+.floating-call[aria-label='WhatsApp us']::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border: 2px solid rgb(37 211 102 / .45);
+  border-radius: 50%;
+  animation: whatsapp-ring 1.8s infinite;
+}
+
+@keyframes whatsapp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(37 211 102 / .55), 0 12px 30px rgb(0 0 0 / .2);
+  }
+  70% {
+    box-shadow: 0 0 0 18px rgb(37 211 102 / 0), 0 12px 30px rgb(0 0 0 / .2);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(37 211 102 / 0), 0 12px 30px rgb(0 0 0 / .2);
+  }
+}
+
+@keyframes whatsapp-ring {
+  0% {
+    transform: scale(.96);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.14);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
 }
 
 .services-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 2rem; }
@@ -479,12 +522,12 @@ button {
 .process-icon { display: grid; height: 5.8rem; place-items: end center; color: #e63847; font-size: 2.7rem; }
 .process-step h3 { min-height: 3.2rem; margin: 1.7rem 0 0; color: #38465a; font-size: 1.28rem; font-weight: 800; line-height: 1.25; }
 .process-step p { margin: .85rem 0 0; color: #38465a; font-size: 1rem; line-height: 1.65; }
-.stats-section { background: #B9151C !important; padding: 5.25rem 2.5rem; color: white; }
-.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; }
+.stats-section { background: #B9151C !important; padding: 5.25rem 1.5rem; color: white; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
 .stat-item { text-align: center; }
-.stat-item > span { display: grid; height: 4.5rem; place-items: center; font-size: 3.5rem; }
-.stat-item strong { display: block; margin-top: 1.6rem; font-size: clamp(3.2rem, 4vw, 4.5rem); font-weight: 700; line-height: 1; }
-.stat-item p { margin: 1.2rem 0 0; font-size: 1.2rem; font-weight: 500; }
+.stat-item > span { display: grid; height: 4rem; place-items: center; font-size: 2.8rem; }
+.stat-item strong { display: block; margin-top: 1.2rem; font-size: clamp(2.4rem, 3vw, 3.6rem); font-weight: 700; line-height: 1; }
+.stat-item p { margin: 0.9rem 0 0; font-size: 1rem; font-weight: 500; }
 .emergency-section { position: relative; isolation: isolate; display: grid; min-height: 410px; place-items: center; overflow: hidden; background-image: url('/images/photo'); background-position: center; background-size: cover; padding: 3.75rem 2rem; color: white; }
 .emergency-overlay { position: absolute; inset: 0; z-index: -1; background: rgb(5 10 14 / .76); }
 .emergency-content { width: 100%; max-width: 1250px; text-align: center; }
@@ -817,6 +860,8 @@ button {
   .service-card, .service-card:nth-child(4), .service-card:last-child { grid-column: auto; width: 100%; min-height: 470px; border-width: 4px; border-radius: 1.8rem; }
   .service-icon { top: 1.3rem; left: 1.3rem; width: 3.5rem; height: 3.5rem; font-size: 1.35rem; }
   .service-copy { right: 1.4rem; bottom: 1.6rem; left: 1.4rem; }
+  .service-shade { background: linear-gradient(180deg, rgb(42 0 3 / .12) 10%, rgb(78 0 4 / .5) 48%, rgb(82 0 4 / .98) 100%); }
+  .service-hover-details { max-height: 300px; opacity: 1; transform: translateY(0); }
   .back-to-top { right: 1.15rem; width: 3.6rem; height: 3.6rem; }
   .about-visual > img { border-radius: 1.4rem; }
   .experience-card { right: .75rem; bottom: -2.5rem; width: 10.5rem; min-height: 8rem; border-radius: 1.25rem; padding: 1.2rem; }
@@ -832,7 +877,7 @@ button {
   .process-step { max-width: 340px; margin-inline: auto; }
   .process-step h3 { min-height: 0; }
   .stats-section { padding: 4rem 1.25rem; }
-  .stats-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 1.5rem; }
   .emergency-section { min-height: 480px; padding: 3.25rem 1.25rem; }
   .emergency-content p { font-size: 1rem; line-height: 1.8; }
   .emergency-actions { flex-direction: column; align-items: center; }
@@ -851,9 +896,16 @@ button {
   .contact-row p { font-size: .95rem; }
   .map-wrap, .map-wrap iframe { min-height: 400px; }
   .site-footer { padding: 4rem 1.25rem 1.5rem; }
-  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; }
-  .footer-contact { grid-column: auto; }
-  .footer-contact > a, .footer-contact > p { overflow-wrap: anywhere; font-size: .95rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 3rem; text-align: center; }
+  .footer-brand, .footer-services, .footer-contact { align-items: center; text-align: center; }
+  .footer-brand { display: flex; flex-direction: column; align-items: center; }
+  .footer-brand .flex { justify-content: center; }
+  .footer-brand > p, .footer-services > a, .footer-contact > a, .footer-contact > p { margin-left: auto; margin-right: auto; text-align: center; }
+  .footer-contact { grid-column: auto; align-items: center; }
+  .footer-contact > a, .footer-contact > p { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; width: fit-content; max-width: 100%; margin-left: auto; margin-right: auto; overflow-wrap: anywhere; font-size: .95rem; text-align: center; }
+  .footer-contact > p { align-items: center; }
+  .footer-contact > p svg { margin-top: 0; margin-left: .25rem; align-self: center; }
+  .footer-socials { justify-content: center; }
 }
 
 /* Match the supplied 724px reference layout. */
